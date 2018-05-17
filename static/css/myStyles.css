@@ -1,0 +1,33 @@
+body
+{
+   font-family: "Comic Sans MS", cursive, sans-serif !important;
+   display: flex;
+   flex-direction: column;
+}
+
+.tables_wrapper {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	max-height: 20px;
+}
+
+.single_table {
+  max-width: 30%;
+  min-width: 200px;
+
+  margin: 20px;
+}
+
+td {
+	border: 1px solid black;
+}
+
+.table_headers {
+	font-weight: bold;
+}
+
+table {
+	height: 500px;
+  overflow-y: scroll;
+}
