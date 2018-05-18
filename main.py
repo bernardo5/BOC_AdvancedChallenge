@@ -233,7 +233,7 @@ def index():
 	#print getServerDetails(TheServers[0].id).name
 	#9
 	#print getApplicationDetails(TheApps[0].id).category
-	return render_template('index.html', applications=TheApps, servers=TheServers, locations=locations, LocationDetails=[], loc=False)
+	return render_template('index.html', applications=TheApps, servers=TheServers, locations=locations, LocationDetails=[], locCoordinates=[], loc=False)
 
 @app.route('/detailsServer', methods=['POST'])
 def ServDetails():
@@ -247,7 +247,16 @@ def LocDetails():
 	if request.method=="POST":
 		LocId = request.form['idLocation']
 		myLocDetails=getLocationDetails(LocId)
-		return render_template('index.html', applications=TheApps, servers=TheServers, locations=locations, LocationDetails=myLocDetails, loc=True)
+		detailsDictionary={}
+		detailsDictionary["Id"]=myLocDetails.id
+		detailsDictionary["Name"]=myLocDetails.name
+		detailsDictionary["Description"]=myLocDetails.description
+		detailsDictionary["Need For Action"]=myLocDetails.needForAction
+		detailsDictionary["Servers"]=myLocDetails.servers
+		detailsDictionary["Latitude"]=myLocDetails.latitude
+		detailsDictionary["Longitude"]=myLocDetails.longitude
+
+		return render_template('index.html', applications=TheApps, servers=TheServers, locations=locations, LocationDetails=detailsDictionary, locCoordinates=myLocDetails, loc=True)
 
 @app.route('/detailsApplication', methods=['POST'])
 def AppDetails():
