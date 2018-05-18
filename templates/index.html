@@ -7,7 +7,14 @@
 			<script type="text/javascript">
 			  // The first parameter are the coordinates of the center of the map
 			  // The second parameter is the zoom level
-			  var map = L.map('map').setView([40.712, -74.006], 11);
+			  var map;
+			  var loc='{{loc}}';
+			  debugger;
+			  if(loc==='True'){
+			  	map = L.map('map').setView([{{LocationDetails.latitude}}, {{LocationDetails.longitude}}], 11);
+			  }else{
+			  	map= L.map('map').setView([38.734894, -9.139285], 5);
+			  }
 			  
 			  // {s}, {z}, {x} and {y} are placeholders for map tiles
 			  // {x} and {y} are the x/y of where you are on the map
@@ -21,8 +28,15 @@
 			  // Now add the layer onto the map
 			  map.addLayer(layer);
 			  // It even opens up a popup when you click it!
-				L.marker([38.734894, -9.139285]).addTo(map)
+
+			  if(loc==='True'){
+			  	L.marker([{{LocationDetails.latitude}}, {{LocationDetails.longitude}}]).addTo(map)
+				  .bindPopup("<strong>me</strong>").openPopup();
+			  }else{
+			  	L.marker([38.734894, -9.139285]).addTo(map)
 				  .bindPopup("<strong>Unbabel</strong>").openPopup();
+			  }
+				
 			</script>
 		<div class="tables_wrapper">
 			<div class="single_table">
@@ -36,7 +50,11 @@
 					</tr>
 					{% for location in locations %}
 					<tr>
-						<td>{{location.id}}</td>
+						<td>
+							<form method="post" action="/detailsLocation">
+								<button name="idLocation" type="submit" value="{{location.id}}">Detail</button>
+							</form>
+						</td>
 						<td>{{location.name}}</td>
 						<td>{{location.description}}</td>
 						<td>
@@ -64,7 +82,11 @@
 					</tr>
 					{% for server in servers %}
 					<tr>
-						<td>{{server.id}}</td>
+						<td>
+							<form method="post" action="/detailsServer">
+								<button name="idServer" type="submit" value="{{server.id}}">Detail</button>
+							</form>
+						</td>
 						<td>{{server.name}}</td>
 						<td>{{server.description}}</td>
 						<td>
@@ -89,7 +111,11 @@
 					</tr>
 					{% for application in applications %}
 					<tr>
-						<td>{{application.id}}</td>
+						<td>
+							<form method="post" action="/detailsApplication">
+								<button name="idApplication" type="submit" value="{{application.id}}">Detail</button>
+							</form>
+						</td>
 						<td>{{application.name}}</td>
 						<td>{{application.description}}</td>
 					</tr>
