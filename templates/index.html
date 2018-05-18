@@ -11,7 +11,7 @@
 			  var loc='{{loc}}';
 			  debugger;
 			  if(loc==='True'){
-			  	map = L.map('map').setView([{{LocationDetails.latitude}}, {{LocationDetails.longitude}}], 11);
+			  	map = L.map('map').setView([{{locCoordinates.latitude}}, {{locCoordinates.longitude}}], 11);
 			  }else{
 			  	map= L.map('map').setView([38.734894, -9.139285], 5);
 			  }
@@ -30,7 +30,7 @@
 			  // It even opens up a popup when you click it!
 
 			  if(loc==='True'){
-			  	L.marker([{{LocationDetails.latitude}}, {{LocationDetails.longitude}}]).addTo(map)
+			  	L.marker([{{locCoordinates.latitude}}, {{locCoordinates.longitude}}]).addTo(map)
 				  .bindPopup("<strong>me</strong>").openPopup();
 			  }else{
 			  	L.marker([38.734894, -9.139285]).addTo(map)
@@ -38,91 +38,157 @@
 			  }
 				
 			</script>
-		<div class="tables_wrapper">
-			<div class="single_table">
-				<h1>Locations</h1>
-				<table>
-					<tr>
-						<td class="table_headers">id</td>
-						<td class="table_headers">name</td>
-						<td class="table_headers">Description</td>
-						<td class="table_headers">Servers</td>
-					</tr>
-					{% for location in locations %}
-					<tr>
-						<td>
-							<form method="post" action="/detailsLocation">
-								<button name="idLocation" type="submit" value="{{location.id}}">Detail</button>
-							</form>
-						</td>
-						<td>{{location.name}}</td>
-						<td>{{location.description}}</td>
-						<td>
-							<ul>
-							{% for server in location.servers %}
-								<li>{{server.name}}</li>
-							{%endfor%}
-							</ul>
-						</td>
-						
-					</tr>
-					{% endfor %}
-				</table>
+		<!-- The Modal -->
+		<div class="content_other_than_map">
+			<div id="myModal" class="modal">
+
+			  <!-- Modal content -->
+			  <div class="modal-content">
+			    <span class="close">&times;</span>
+			    <h1>Location Detail</h1>
+			    {% if  loc == True%}
+					<table>
+						<tr>
+							<td class="table_headers">Property</td>
+							<td class="table_headers">Value</td>
+						</tr>
+						{% for key, value in LocationDetails.iteritems() %}
+						<tr>
+							<td>{{key}}</td>
+							<td>{{value}}</td>
+						</tr>
+						{% endfor %}
+					</table>
+				{%endif%}
+			  </div>
 
 			</div>
-			
-			<div class="single_table">
-				<h1>Servers</h1>
-				<table>
-					<tr>
-						<td class="table_headers">id</td>
-						<td class="table_headers">name</td>
-						<td class="table_headers">Description</td>
-						<td class="table_headers">Applications</td>
-					</tr>
-					{% for server in servers %}
-					<tr>
-						<td>
-							<form method="post" action="/detailsServer">
-								<button name="idServer" type="submit" value="{{server.id}}">Detail</button>
-							</form>
-						</td>
-						<td>{{server.name}}</td>
-						<td>{{server.description}}</td>
-						<td>
-							<ul>
-							{% for app in server.applications %}
-								<li>{{app.name}}</li>
-							{%endfor%}
-							</ul>
-						</td>
-					</tr>
-					{% endfor %}
-				</table>
-			</div>
 
-			<div class="single_table">
-				<h1>Applications</h1>
-				<table>
-					<tr>
-						<td class="table_headers">id</td>
-						<td class="table_headers">name</td>
-						<td class="table_headers">Description</td>
-					</tr>
-					{% for application in applications %}
-					<tr>
-						<td>
-							<form method="post" action="/detailsApplication">
-								<button name="idApplication" type="submit" value="{{application.id}}">Detail</button>
-							</form>
-						</td>
-						<td>{{application.name}}</td>
-						<td>{{application.description}}</td>
-					</tr>
-					{% endfor %}
-				</table>
-			</div>	
+			<script>
+				// Get the modal
+				var modal = document.getElementById('myModal');
+
+				// Get the button that opens the modal
+				var btn = document.getElementById("myBtn");
+
+				// Get the <span> element that closes the modal
+				var span = document.getElementsByClassName("close")[0];
+
+				// When the user clicks the button, open the modal 
+				function displayModalFunc() {
+				    modal.style.display = "block";
+				}
+
+				var loc='{{loc}}';
+				debugger;
+				if(loc==='True'){
+					displayModalFunc()
+				}else{
+					modal.style.display = "none";
+				}
+
+				// When the user clicks on <span> (x), close the modal
+				span.onclick = function() {
+				    modal.style.display = "none";
+				}
+
+				// When the user clicks anywhere outside of the modal, close it
+				window.onclick = function(event) {
+				    if (event.target == modal) {
+				        modal.style.display = "none";
+				    }
+				}
+			</script>
+
+
+
+			<div class="tables_wrapper">
+				<div class="single_table">
+					<h1>Locations</h1>
+					<table>
+						<tr>
+							<td class="table_headers">Detail</td>
+							<td class="table_headers">Name</td>
+							<td class="table_headers">Description</td>
+							<td class="table_headers">Servers</td>
+						</tr>
+						{% for location in locations %}
+						<tr>
+							<td>
+								<form method="post" action="/detailsLocation">
+									<button name="idLocation" type="submit" value="{{location.id}}">Detail</button>
+								</form>
+							</td>
+							<td>{{location.name}}</td>
+							<td>{{location.description}}</td>
+							<td>
+								<ul>
+								{% for server in location.servers %}
+									<li>{{server.name}}</li>
+								{%endfor%}
+								</ul>
+							</td>
+							
+						</tr>
+						{% endfor %}
+					</table>
+
+				</div>
+				
+				<div class="single_table">
+					<h1>Servers</h1>
+					<table>
+						<tr>
+							<td class="table_headers">Detail</td>
+							<td class="table_headers">Name</td>
+							<td class="table_headers">Description</td>
+							<td class="table_headers">Applications</td>
+						</tr>
+						{% for server in servers %}
+						<tr>
+							<td>
+								<form method="post" action="/detailsServer">
+									<button name="idServer" type="submit" value="{{server.id}}">Detail</button>
+								</form>
+							</td>
+							<td>{{server.name}}</td>
+							<td>{{server.description}}</td>
+							<td>
+								<ul>
+								{% for app in server.applications %}
+									<li>{{app.name}}</li>
+								{%endfor%}
+								</ul>
+							</td>
+						</tr>
+						{% endfor %}
+					</table>
+				</div>
+
+				<div class="single_table">
+					<h1>Applications</h1>
+					<table>
+						<tr>
+							<td class="table_headers">Detail</td>
+							<td class="table_headers">Name</td>
+							<td class="table_headers">Description</td>
+						</tr>
+						{% for application in applications %}
+						<tr>
+							<td>
+								<form method="post" action="/detailsApplication">
+									<button name="idApplication" type="submit" value="{{application.id}}">Detail</button>
+								</form>
+							</td>
+							<td>{{application.name}}</td>
+							<td>{{application.description}}</td>
+						</tr>
+						{% endfor %}
+					</table>
+				</div>	
+			</div>
 		</div>
+		
 		
 	</div>
 	
