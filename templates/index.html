@@ -36,7 +36,11 @@
 					</tr>
 					{% for location in locations %}
 					<tr>
-						<td>{{location.id}}</td>
+						<td>
+							<form method="post" action="/detailsLocation">
+								<button name="idLocation" type="submit" value="{{location.id}}">Detail</button>
+							</form>
+						</td>
 						<td>{{location.name}}</td>
 						<td>{{location.description}}</td>
 						<td>
@@ -64,7 +68,11 @@
 					</tr>
 					{% for server in servers %}
 					<tr>
-						<td>{{server.id}}</td>
+						<td>
+							<form method="post" action="/detailsServer">
+								<button name="idServer" type="submit" value="{{server.id}}">Detail</button>
+							</form>
+						</td>
 						<td>{{server.name}}</td>
 						<td>{{server.description}}</td>
 						<td>
@@ -89,7 +97,11 @@
 					</tr>
 					{% for application in applications %}
 					<tr>
-						<td>{{application.id}}</td>
+						<td>
+							<form method="post" action="/detailsApplication">
+								<button name="idApplication" type="submit" value="{{application.id}}">Detail</button>
+							</form>
+						</td>
 						<td>{{application.name}}</td>
 						<td>{{application.description}}</td>
 					</tr>
