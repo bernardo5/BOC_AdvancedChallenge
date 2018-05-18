@@ -218,13 +218,15 @@ def index():
 	#4 fetch list of locations
 	myLocationsRaw=getRequestChallengeTwo(devId, 'https://wad-challenge-2018.boc-cloud.com/rest/dev/locations/')
 
-	processListOfLocations(myLocationsRaw)
+	if len(locations)==0:
+		processListOfLocations(myLocationsRaw)
 
-	#5
-	processListOfServers()
-
-	#6
-	processListOfApps()
+	if len(TheServers)==0:
+		#5
+		processListOfServers()
+	if len(TheApps)==0:
+		#6
+		processListOfApps()
 	#7
 	#print getLocationDetails(locations[0].id).name
 	#8
@@ -233,3 +235,23 @@ def index():
 	#print getApplicationDetails(TheApps[0].id).category
 	return render_template('index.html', applications=TheApps, servers=TheServers, locations=locations)
 
+@app.route('/detailsServer', methods=['POST'])
+def ServDetails():
+	if request.method=="POST":
+		ServId = request.form['idServer']
+		myServDetails=getServerDetails(ServId)
+		return render_template('index.html', applications=TheApps, servers=TheServers, locations=locations, ServerDetails=myServDetails)
+
+@app.route('/detailsLocation', methods=['POST'])
+def LocDetails():
+	if request.method=="POST":
+		LocId = request.form['idLocation']
+		myLocDetails=getLocationDetails(LocId)
+		return render_template('index.html', applications=TheApps, servers=TheServers, locations=locations, LocationDetails=myLocDetails)
+
+@app.route('/detailsApplication', methods=['POST'])
+def AppDetails():
+	if request.method=="POST":
+		AppId = request.form['idApplication']
+		myAppDetails=getApplicationDetails(AppId)
+		return render_template('index.html', applications=TheApps, servers=TheServers, locations=locations, ApplicationDetails=myAppDetails)
