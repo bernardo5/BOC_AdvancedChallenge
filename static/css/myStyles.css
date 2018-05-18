@@ -27,6 +27,19 @@ td {
 	font-weight: bold;
 }
 
+.table_headers_location{
+	background: #5D74B8;
+}
+
+.table_headers_Server{
+	background: #cdcd00;
+}
+
+.table_headers_app{
+	background: #FF9329;
+}
+
+
 table {
 	height: 500px;
   overflow-y: scroll;
