@@ -5,6 +5,70 @@ body
    flex-direction: column;
 }
 
+.textAbout p{
+	text-align: center;
+	vertical-align: middle;
+	line-height: 90px;
+}
+
+.textAbout a{
+	text-decoration: none;
+	color: #000000;
+}
+
+.allAbout {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	max-height: 20px;
+}
+
+.imageAbout {
+	margin-top: 53px;
+	width: 30%;
+    height: 45%;
+}
+
+.WeareDevsImage {
+	width: 100%;
+	height: 100%;
+}
+
+.header {
+	width: 100%;
+	height: 58px;
+	display: flex;
+	flex-wrap: nowrap;
+	flex-shrink: 1;
+	align-self: auto;
+	justify-content: flex-start; 
+	background: #222;
+}
+
+.challenge {
+	max-width: 50%;
+	max-height: 50%;
+	margin-right: 32px;
+	margin-top: 15px;
+}
+
+.challenge a {
+	color: #FFFAFA;
+	padding-left: 20px;
+	text-decoration: none;
+}
+
+.about {
+	max-width: 50%;
+	max-height: 50%;
+	margin-top: 15px;
+}
+
+.about a {
+	color: #FFFAFA;
+	text-decoration: none;
+}
+
 .tables_wrapper {
 	display: flex;
 	flex-wrap: wrap;

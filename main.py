@@ -289,3 +289,8 @@ def AppDetails():
 		detailsDictionary["Operation Cost"]=myAppDetails.operation_cost
 		detailsDictionary["Category"]=myAppDetails.category
 		return render_template('index.html', applications=TheApps, servers=TheServers, locations=locations, details=detailsDictionary, loc=False, detail=True, locCoordinates=[])
+
+
+@app.route('/about')
+def aboutUs():
+	return render_template('About.html')
