@@ -30,6 +30,7 @@ td {
 table {
 	height: 500px;
   overflow-y: scroll;
+  margin: 0 auto;
 }
 
 
@@ -53,7 +54,7 @@ table {
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 80%;
+    width: 60%;
 }
 
 /* The Close Button */

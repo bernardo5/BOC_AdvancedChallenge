@@ -242,6 +242,17 @@ def ServDetails():
 		myServDetails=getServerDetails(ServId)
 		return render_template('index.html', applications=TheApps, servers=TheServers, locations=locations, ServerDetails=myServDetails)
 
+def listServers(serversList):
+	listToGet=""
+	i=0
+	for server in serversList:
+		if i==0:
+			listToGet=listToGet+server.name
+		else:
+			listToGet=listToGet+", "+server.name
+		i=i+1
+	return listToGet
+
 @app.route('/detailsLocation', methods=['POST'])
 def LocDetails():
 	if request.method=="POST":
@@ -252,7 +263,7 @@ def LocDetails():
 		detailsDictionary["Name"]=myLocDetails.name
 		detailsDictionary["Description"]=myLocDetails.description
 		detailsDictionary["Need For Action"]=myLocDetails.needForAction
-		detailsDictionary["Servers"]=myLocDetails.servers
+		detailsDictionary["Servers"]=listServers(myLocDetails.servers)
 		detailsDictionary["Latitude"]=myLocDetails.latitude
 		detailsDictionary["Longitude"]=myLocDetails.longitude
 
