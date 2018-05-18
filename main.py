@@ -233,16 +233,22 @@ def index():
 	#print getServerDetails(TheServers[0].id).name
 	#9
 	#print getApplicationDetails(TheApps[0].id).category
-	return render_template('index.html', applications=TheApps, servers=TheServers, locations=locations, LocationDetails=[], locCoordinates=[], loc=False)
+	return render_template('index.html', applications=TheApps, servers=TheServers, locations=locations, LocationDetails=[], locCoordinates=[], loc=False, detail=False)
 
 @app.route('/detailsServer', methods=['POST'])
 def ServDetails():
 	if request.method=="POST":
 		ServId = request.form['idServer']
 		myServDetails=getServerDetails(ServId)
-		return render_template('index.html', applications=TheApps, servers=TheServers, locations=locations, ServerDetails=myServDetails)
+		detailsDictionary={}
+		detailsDictionary["Id"]=myServDetails.id
+		detailsDictionary["Name"]=myServDetails.name
+		detailsDictionary["Description"]=myServDetails.description
+		detailsDictionary["Applications"]=listList(myServDetails.applications)
+		detailsDictionary["Need For Action"]=myServDetails.needForAction
+		return render_template('index.html', applications=TheApps, servers=TheServers, locations=locations, details=detailsDictionary, loc=False, detail=True, locCoordinates=[])
 
-def listServers(serversList):
+def listList(serversList):
 	listToGet=""
 	i=0
 	for server in serversList:
@@ -263,15 +269,23 @@ def LocDetails():
 		detailsDictionary["Name"]=myLocDetails.name
 		detailsDictionary["Description"]=myLocDetails.description
 		detailsDictionary["Need For Action"]=myLocDetails.needForAction
-		detailsDictionary["Servers"]=listServers(myLocDetails.servers)
+		detailsDictionary["Servers"]=listList(myLocDetails.servers)
 		detailsDictionary["Latitude"]=myLocDetails.latitude
 		detailsDictionary["Longitude"]=myLocDetails.longitude
 
-		return render_template('index.html', applications=TheApps, servers=TheServers, locations=locations, LocationDetails=detailsDictionary, locCoordinates=myLocDetails, loc=True)
+		return render_template('index.html', applications=TheApps, servers=TheServers, locations=locations, details=detailsDictionary, locCoordinates=myLocDetails, loc=True, detail=True)
 
 @app.route('/detailsApplication', methods=['POST'])
 def AppDetails():
 	if request.method=="POST":
-		AppId = request.form['idApplication'],
+		AppId = request.form['idApplication']
 		myAppDetails=getApplicationDetails(AppId)
-		return render_template('index.html', applications=TheApps, servers=TheServers, locations=locations, ApplicationDetails=myAppDetails)
+		detailsDictionary={}
+		detailsDictionary["Id"]=myAppDetails.id
+		detailsDictionary["Name"]=myAppDetails.name
+		detailsDictionary["Description"]=myAppDetails.description
+		detailsDictionary["Need For Action"]=myAppDetails.need_for_action
+		detailsDictionary["Investment Cost"]=myAppDetails.investment_cost
+		detailsDictionary["Operation Cost"]=myAppDetails.operation_cost
+		detailsDictionary["Category"]=myAppDetails.category
+		return render_template('index.html', applications=TheApps, servers=TheServers, locations=locations, details=detailsDictionary, loc=False, detail=True, locCoordinates=[])

@@ -46,14 +46,14 @@
 			  <!-- Modal content -->
 			  <div class="modal-content">
 			    <span class="close">&times;</span>
-			    <h1>Location Detail</h1>
-			    {% if  loc == True%}
+			    <h1>Detail</h1>
+			    {% if detail== True%}
 					<table>
 						<tr>
 							<td class="table_headers">Property</td>
 							<td class="table_headers">Value</td>
 						</tr>
-						{% for key, value in LocationDetails.iteritems() %}
+						{% for key, value in details.iteritems() %}
 						<tr>
 							<td>{{key}}</td>
 							<td>{{value}}</td>
@@ -80,7 +80,7 @@
 				    modal.style.display = "block";
 				}
 
-				var loc='{{loc}}';
+				var loc='{{detail}}';
 				debugger;
 				if(loc==='True'){
 					displayModalFunc()
